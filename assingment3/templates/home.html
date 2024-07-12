@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="d-flex flex-wrap justify-content-center px-5 pt-5">
+  {% for tas in data %}
+  <div class="col-sm-3">
+    <div class="card m-2">
+      <div class="card-body">
+        <h5 class="card-title">{{tas.title}}</h5>
+        <p class="card-text">{{tas.description}}</p>
+        <p class="card-text">{{tas.completed}}</p>
+        <p class="card-text">{{tas.date}}</p>
+        
+        <p>Category : {% for cat in tas.catagory.all %} 
+          <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
+        {% endfor %}
+        </p>
+        
+        {% if tas.completed %}
+        <button class="btn btn-success" disabled>Completed</button>
+        {% else %}
+        <a href="{% url 'edit_task' tas.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'delete_task' tas.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
